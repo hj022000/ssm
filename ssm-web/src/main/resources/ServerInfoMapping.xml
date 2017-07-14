@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.taomee.bigdata.ssm.dao.ServerInfoDao">
+	<resultMap id="ServerInfoMap" type="com.taomee.bigdata.ssm.entity.ServerInfo">
+		<id column="server_id" property="serverId" jdbcType="INTEGER" />
+		<result column="server_name" property="serverName" jdbcType="VARCHAR" />
+		<result column="parent_id" property="parentId" jdbcType="INTEGER" />
+		<result column="game_id" property="gameId" jdbcType="INTEGER" />
+		<result column="is_leaf" property="isLeaf" jdbcType="INTEGER" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="add_time" property="addTime" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp"/>
+	</resultMap>
+
+	<sql id="ServerInfoColumnList">
+		server_id, server_name, parent_id, game_id, is_leaf,
+		status
+	</sql>
+	<select id="getServerInfo" resultMap="ServerInfoMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="ServerInfoColumnList" />
+		from t_server_info
+		where server_id = #{serverId,jdbcType=INTEGER} order
+		by server_id ASC
+	</select>
+</mapper> 
